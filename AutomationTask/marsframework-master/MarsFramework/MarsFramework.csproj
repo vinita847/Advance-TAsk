@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Global\Base.cs" />
     <Compile Include="Global\GlobalDefinitions.cs" />
+    <Compile Include="Pages\Dashboard.cs" />
     <Compile Include="Pages\ManageListings.cs" />
     <Compile Include="Pages\ReceivedRequests.cs" />
     <Compile Include="Pages\Search.cs" />

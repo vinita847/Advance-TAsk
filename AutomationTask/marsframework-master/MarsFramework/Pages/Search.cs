@@ -9,7 +9,7 @@ using OpenQA.Selenium;
 
 namespace MarsFramework.Pages
 {
-    class Search
+    public class Search
     {
         public Search()
         {
@@ -36,9 +36,32 @@ namespace MarsFramework.Pages
         [FindsBy(How = How.XPath, Using = "//div[@class='ui buttons']/button[contains(text(), 'Onsite')]")]
         private IWebElement OnsiteOpt { get; set; }
 
+        //Filter by ShowAll
+        [FindsBy(How = How.XPath, Using = "//div/button[contains(text(), 'ShowAll')]")]
+        private IWebElement ShowAllOpt { get; set; }
+
+
         //Total count of skills
         [FindsBy (How = How.XPath, Using = "//div[@class='ui link list']//b/following-sibling::span")]
-        private IWebElement TotalSkillCount { get; set; }
+        public IWebElement TotalSkillCount { get; set; }
+
+        //Result per page [9]
+        [FindsBy(How = How.XPath, Using = "//div[@class='right floated column ']/button[1]")]
+        private IWebElement ResultPerPage { get; set; }
+
+        //Second last page WebElement (128 right now)
+        [FindsBy(How = How.XPath, Using = "//button[@class='ui button otherPage'] [contains(text(), '>')]/preceding-sibling::button[2]")]
+        private IWebElement SecondLastPage { get; set; }
+
+
+        //Second last page WebElement (129 right now)
+        [FindsBy(How = How.XPath, Using = "//button[@class='ui button otherPage'] [contains(text(), '>')]/preceding-sibling::button[1]")]
+        private IWebElement LastPage { get; set; }
+
+        //lastPageItems
+        [FindsBy(How = How.XPath, Using = "//div[@class='ui card']")]
+        private IWebElement LastPageSkills { get; set; }
+        
 
         //PAgination last button sign
         [FindsBy(How = How.XPath, Using = "//div[@class='ui buttons semantic-ui-react-button-pagination']//button[contains(text(), '>')]")]
@@ -60,14 +83,36 @@ namespace MarsFramework.Pages
 
         public void FilterOnline()
         {
+            GlobalDefinitions.wait(20);
             OnlineOpt.Click();
-
+            GlobalDefinitions.wait(20);
         }
+
+
+        //public int TotalSkills(IWebElement TotalOnlineCount)
+        //{
+
+        //    int  Totalskills = Convert.ToInt32(TotalOnlineCount.Text);
+        //    return Totalskills;
+        //}
+
+
+        //public string TotalCount()
+        //{
+        //    string TotalOnlineSkills = TotalOnlineCount.Text;
+        //    return TotalOnlineSkills;
+        //    return Convert.ToInt32(TotalSkillCount.Text);
+        //}
 
 
         public void FilterOnsite()
         {
             OnsiteOpt.Click();
+        }
+
+        public void ShowAll()
+        {
+            ShowAllOpt.Click();
         }
     }
 }

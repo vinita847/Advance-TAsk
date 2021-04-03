@@ -462,18 +462,200 @@ namespace MarsFramework
 
 
             }
-
+            [Test]
             public void FilterByOnline()
             {
+                GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Filter");
+                test = extent.StartTest("Test for Filter skills by Online option");
+                try
+                {
+                Profile profileObj = new Profile();
+                profileObj.ClickonSearch();
                 Search SearchObj = new Search();
                 SearchObj.FilterOnline();
+                GlobalDefinitions.wait(20);
+                var ActualCount = SearchObj.TotalSkillCount.Text;
+
+                GlobalDefinitions.wait(20);
+                  //Assert.AreEqual("1154", ActualCount);
+                Assert.That(ActualCount, Is.EqualTo(GlobalDefinitions.ExcelLib.ReadData(2, "Online")));
+                Console.WriteLine("Test pass");
+                test.Log(LogStatus.Pass, "Test Pass");
+                GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Filter by Online");
+                }
+                catch(ElementNotVisibleException)
+                {
+                    Console.WriteLine("Test Failed");
+                    test.Log(LogStatus.Fail, "Test Failed");
+
+                }
+
+
             }
+            [Test]
             public void FilterByOnsite()
             {
+                GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Filter");
+                test = extent.StartTest("Test for Filter skills by Online option");
+                try
+                {
+                    Profile profileObj = new Profile();
+                    profileObj.ClickonSearch();
+                    Search SearchObj = new Search();
+                    SearchObj.FilterOnsite();
+                    GlobalDefinitions.wait(10);
+
+                    string ActualCount = SearchObj.TotalSkillCount.Text;
+
+                    GlobalDefinitions.wait(10);
+                    //var ActualCount = SearchObj.TotalSkillCount.Text;
+
+                    var ExpectedCount = 310;
+                    Assert.AreEqual(ExpectedCount, ActualCount);
+                    //Assert.That(SearchObj.TotalSkills(), Is.EqualTo(GlobalDefinitions.ExcelLib.ReadData(2, "Onsite")));
+                    Console.WriteLine("Test pass: User is able to find the Onsite skills");
+                    test.Log(LogStatus.Pass, "Test Pass");
+                    GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Filter by Online");
+
+
+                }
+
+                catch (NoSuchElementException)
+                {
+                    Console.WriteLine("Test Failed");
+                    test.Log(LogStatus.Fail, "Test Failed");
+
+                }
+
+
+
+            }
+            [Test] //incomplete
+            public void ShowAllFiter()
+            {
                 Search SearchObj = new Search();
-                SearchObj.FilterOnsite();
+                SearchObj.ShowAll();
             }
 
+            [Test]
+            public void SelectAllNotifications()
+            {
+                test = extent.StartTest("Select All Option for Notifications");
+                Dashboard dashboardObj = new Dashboard();
+                dashboardObj.SlectAll();
+                int Expectedvalue = dashboardObj.CheckedServices();
+                int ActualValue = 5;
+                try { 
+               Assert.AreEqual(Expectedvalue, ActualValue);
+               test.Log(LogStatus.Pass, "Test Pass: All Checkboxes selected");
+              GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Select All");
+
+                    Console.WriteLine("Test Pass : All notifications are selected");
+
+
+                }
+                catch(Exception e)
+                {
+                    test.Log(LogStatus.Fail, "Test failed");
+                    Console.WriteLine(e + "Test Failed");
+                }
+
+            }
+            [Test]
+            public void UnSelectAll()
+            {
+                test = extent.StartTest("Test for Unselect all checkboxes");
+                Dashboard dashboardObj = new Dashboard();
+                dashboardObj.SlectAll();
+                dashboardObj.UnselectAllSteps();
+                int Expectedvalue = dashboardObj.CheckedServices();
+                int ActualValue = 5;
+
+                try
+                {
+                    Assert.AreEqual(Expectedvalue, ActualValue);
+                    test.Log(LogStatus.Pass, "All Services unselected");
+                    GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "UnSelect all services");
+                    Console.WriteLine("Test Passed: All checkboxes unselected");
+                }
+                catch(Exception e)
+                {
+                    test.Log(LogStatus.Fail, "Services not selected");
+                    Console.WriteLine( e +  "Test Failed: Checkboxes not selected");
+                }
+
+
+            }
+
+            [Test] //Assert not implemented (can verify by visiblity of "Show Less" button)
+            public void LoadMore()
+            {
+                test = extent.StartTest("Test for Load More functionality for Notifications");
+                Dashboard dashboardObj = new Dashboard();
+                dashboardObj.LoadMoreSteps();
+                try
+                {
+
+
+                    test.Log(LogStatus.Pass, "Able to load more Services");
+                    Console.WriteLine("Test Pass: Able to cick on Load More tab");
+
+                }
+                catch(Exception e)
+                {
+                    test.Log(LogStatus.Fail, "Not able to click on Load More tab");
+                    Console.WriteLine(e + "Test failed: can not clcick on Load More tab");
+                }
+                
+            }          
+
+           [Test]
+           public void MarkAsRead()
+            {
+                test = extent.StartTest("Mark as read for notifications");
+                Dashboard dashboardObj = new Dashboard();
+                dashboardObj.MarkAsReadSteps();
+                string ActualMsg = dashboardObj.SuccessMessage();
+                string ExpectedMsg = "Notification updated";
+                try
+                {
+                    Assert.AreEqual(ExpectedMsg, ActualMsg);
+                    test.Log(LogStatus.Pass, ("Test passed: Service is marked as read"));
+                    GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Selected service is Mark as read");
+                    Console.WriteLine("Test passed: Service is marked as read");
+                }
+                catch(Exception e)
+                {
+                    test.Log(LogStatus.Fail, "Services is not marked as read");
+                    Console.WriteLine(e + "Test Failed: not selected as Mark as Read");
+                }
+
+
+
+
+            }
+
+           [Test]
+           public void DeleteNotification()
+            {
+                test = extent.StartTest("Delete for notifications");
+                Dashboard dashboardObj = new Dashboard();
+                dashboardObj.DeleteNotificationSteps();
+                string ActualMsg = dashboardObj.SuccessMessage();
+                string ExpectedMsg = "Notification updated";
+                try
+                {
+                    Assert.AreEqual(ExpectedMsg, ActualMsg);
+                    test.Log(LogStatus.Pass, ("Test passed: Service is Deleted Successfully"));
+                    GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Selected service is Deleted");
+                    Console.WriteLine("Test passed: Service is Deleted");
+                }
+                catch (Exception e)
+                {
+                    test.Log(LogStatus.Fail, "Service is not deleted");
+                    Console.WriteLine(e + "Test Failed");
+                }
+            }
         }
 
 

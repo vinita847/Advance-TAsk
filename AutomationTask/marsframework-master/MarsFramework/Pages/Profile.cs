@@ -531,6 +531,7 @@ namespace MarsFramework
         public void ClickonSearch()
         {
             SearchIcon.Click();
+            GlobalDefinitions.wait(10);
         }
     }
 }
