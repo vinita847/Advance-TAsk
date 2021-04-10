@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\AutomationTask",
+    "\\AutomationTask\\marsframework-master",
+    "\\AutomationTask\\marsframework-master\\MarsFramework",
+    "\\AutomationTask\\marsframework-master\\MarsFramework\\Config",
+    "\\AutomationTask\\marsframework-master\\MarsFramework\\Global",
+    "\\AutomationTask\\marsframework-master\\MarsFramework\\Pages",
+    "\\AutomationTask\\marsframework-master\\MarsFramework\\Test",
+    "\\AutomationTask\\marsframework-master\\MarsFramework\\TestData"
+  ],
+  "SelectedNode": "\\AutomationTask\\marsframework-master\\MarsFramework\\Global\\Base.cs",
+  "PreviewInSolutionExplorer": false
+}
